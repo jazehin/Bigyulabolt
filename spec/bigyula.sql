@@ -1,18 +1,45 @@
+DROP TABLE IF EXISTS `b_user`;
+DROP TABLE IF EXISTS `b_forgalom`;
+DROP TABLE IF EXISTS `b_termekek`;
+DROP TABLE IF EXISTS `b_termekcsoport`;
 
-`b_user` (`b_nev`, `b_tipus`, `b_jelszo`)
+
+CREATE TABLE IF NOT EXISTS `b_user` (
+    b_kod INT PRIMARY KEY AUTO_INCREMENT,
+  	b_nev VARCHAR(30) NOT NULL,
+    b_tipus TINYINT NOT NULL,
+    b_jelszo VARCHAR(50) NOT NULL
+);
+
+INSERT INTO `b_user` (`b_nev`, `b_tipus`, `b_jelszo`) VALUES
 ('Erdei_Geri', 1, 'Hajra'),
 ('Nagy_Edmond_Ede', 0, '123');
 
-`b_termekcsoport` 
-(`b_Tcskod`, `b_Tcsnev`)
+
+CREATE TABLE IF NOT EXISTS `b_termekcsoport` (
+    b_Tcskod INT PRIMARY KEY AUTO_INCREMENT,
+  	b_Tcsnev VARCHAR(30) NOT NULL
+);
+
+INSERT INTO `b_termekcsoport` 
+(`b_Tcskod`, `b_Tcsnev`) VALUES
 (1, 'szamitogepes_jatekok'),
 (2, 'szamitogepes_kiegeszíto'),
 (3, 'edessegek'),
 (4, 'gyerek_jatekok'),
 (5, 'Taiwan_tema');
 
-`b_termekek` 
-(`b_tazon`, `b_tleiras`, `b_tcsop`, `b_tar`)
+
+CREATE TABLE IF NOT EXISTS `b_termekek` (
+    b_tazon INT PRIMARY KEY AUTO_INCREMENT,
+  	b_tleiras VARCHAR(45) NOT NULL,
+    b_tcsop INT NOT NULL,
+    b_tar INT,
+    FOREIGN KEY (b_tcsop) REFERENCES b_termekcsoport(b_Tcskod)
+);
+
+INSERT INTO `b_termekek` 
+(`b_tazon`, `b_tleiras`, `b_tcsop`, `b_tar`) VALUES
 (1, 'C_16 game bigyulabolt', 1, 999),
 (2, 'C_64 game Wizzard of wor', 1, 999),
 (3, 'Quickshot2', 2, 10000),
@@ -22,10 +49,19 @@
 (7, 'Darth Vader Star Wars figura', 4, 9999),
 (8, 'Obi van Kenobi Star Wars figura', 4, 9999),
 (9, 'Oolon tea', 5, 16999),
-(10, 'Winter Melon Tea', 5, 3499)
+(10, 'Winter Melon Tea', 5, 3499);
 
 
-`b_forgalom` 
+CREATE TABLE IF NOT EXISTS `b_forgalom` (
+    b_szamlaszam INT NOT NULL,
+  	b_termekazon INT NOT NULL,
+    b_eladdb INT NOT NULL,
+    b_datum TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY (b_szamlaszam, b_termekazon, b_eladdb, b_datum),
+    FOREIGN KEY (b_termekazon) REFERENCES b_termekek(b_tazon)
+);
+
+INSERT INTO `b_forgalom` 
 (`b_szamlaszam`, `b_termekazon`, `b_eladdb`, `b_datum`) VALUES
 (1, 1, 1, '2022-04-07 15:38:07'),
 (1, 2, 1, '2022-04-07 15:38:08'),
