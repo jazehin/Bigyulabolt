@@ -7,6 +7,8 @@ package bigyula;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -15,17 +17,33 @@ import javax.swing.JOptionPane;
  * @author Kiss Bence
  */
 public class MySQL {
-    private static String url  = "127.0.0.1";
-    private static String user = "root";
-    private static String pass = "";
+    private String url  = "jdbc:mysql://127.0.0.1/bigyulabolt";
+    private String user = "root";
+    private String pass = "";
+    private Connection conn;
     
-    public Connection getConnection() {
+    public MySQL() {
         try {
-            return DriverManager.getConnection(url, user, pass);
-        } catch (SQLException ex) {
+            //Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(url, user, pass);
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Hiba az adatbázishoz csatlakozáskor: " + ex.getMessage());
+        }
+    }
+    
+    public ResultSet select(String sql, String[] ertekek) {
+        try {
+            PreparedStatement sta = conn.prepareStatement(sql);
+            for (int i = 1; i < ertekek.length + 1; i++) {
+                sta.setString(i, ertekek[i - 1]);
+            }
+            ResultSet rs = sta.executeQuery();
+            return rs;
+            //sta.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Hiba a lekérdezés során: " + ex.getMessage());
         }
         
         return null;
     }
-}
+} 
