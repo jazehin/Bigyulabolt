@@ -5,6 +5,12 @@
  */
 package bigyula;
 
+import com.sun.glass.events.KeyEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lakatos Ildikó
@@ -27,21 +33,144 @@ public class UjTermCsop extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel2 = new javax.swing.JLabel();
+        jTF_Tcskod = new javax.swing.JTextField();
+        jBtn_Felvetel = new javax.swing.JButton();
+        jBtn_Vissza = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTF_Tcsnev = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Termékcsoport kód:");
+
+        jTF_Tcskod.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTF_Tcskod.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTF_TcskodKeyTyped(evt);
+            }
+        });
+
+        jBtn_Felvetel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBtn_Felvetel.setText("Felvétel");
+        jBtn_Felvetel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtn_FelvetelActionPerformed(evt);
+            }
+        });
+
+        jBtn_Vissza.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBtn_Vissza.setText("Vissza");
+        jBtn_Vissza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtn_VisszaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Új termékcsoport felvétele");
+
+        jTF_Tcsnev.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("Termékcsoport név:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(65, 65, 65)
+                                .addComponent(jTF_Tcskod, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jBtn_Vissza)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBtn_Felvetel))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(65, 65, 65)
+                                    .addComponent(jTF_Tcsnev, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(jLabel1)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jTF_Tcskod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTF_Tcsnev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtn_Vissza)
+                    .addComponent(jBtn_Felvetel))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtn_FelvetelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_FelvetelActionPerformed
+        String kod = jTF_Tcskod.getText();
+        String nev = jTF_Tcsnev.getText();
+
+        if (nev.equals("") || kod.equals("")) {
+            JOptionPane.showMessageDialog(null, "Üres mező nem lehet!");
+            return;
+        }
+
+        try {
+            MySQL mysql = new MySQL();
+            String[] ertekek = {kod};
+            PreparedStatement psta = mysql.getStatement("SELECT * FROM b_termekcsoport WHERE b_Tcskod = ?;", ertekek);
+            ResultSet rs = psta.executeQuery();
+            
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Ez a kód már szerepel!");
+            }
+            else {
+                psta = mysql.getStatement("INSERT INTO b_termekcsoport (b_Tcskod, b_Tcsnev) VALUES (?, ?);", ertekek);
+                psta.execute();
+                JOptionPane.showMessageDialog(null, "Sikeres felvétel!");
+            }
+            
+            psta.close();
+            mysql.finalize();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Hiba a felhasználó felvételekor: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jBtn_FelvetelActionPerformed
+
+    private void jBtn_VisszaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_VisszaActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jBtn_VisszaActionPerformed
+
+    private void jTF_TcskodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTF_TcskodKeyTyped
+        char c = evt.getKeyChar();
+        if (jTF_Tcskod.getText().length() == 0 && c == '0') {
+            evt.consume();
+        }
+        if ((c < '0' || c > '9') && c != KeyEvent.VK_BACKSPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTF_TcskodKeyTyped
 
     /**
      * @param args the command line arguments
@@ -79,5 +208,12 @@ public class UjTermCsop extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtn_Felvetel;
+    private javax.swing.JButton jBtn_Vissza;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField jTF_Tcskod;
+    private javax.swing.JTextField jTF_Tcsnev;
     // End of variables declaration//GEN-END:variables
 }
