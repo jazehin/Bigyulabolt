@@ -81,6 +81,11 @@ public class Fomenu extends javax.swing.JFrame {
 
         jMI_Eladas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMI_Eladas.setText("Eladás");
+        jMI_Eladas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMI_EladasActionPerformed(evt);
+            }
+        });
         jM_Ugyvitel.add(jMI_Eladas);
 
         jMI_Kimutatás.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -115,6 +120,11 @@ public class Fomenu extends javax.swing.JFrame {
         UjTermCsop ujtermcsop = new UjTermCsop();
         ujtermcsop.setVisible(true);
     }//GEN-LAST:event_jMI_UjtermcsopActionPerformed
+
+    private void jMI_EladasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMI_EladasActionPerformed
+        Kimutatas kimutatas = new Kimutatas();
+        kimutatas.setVisible(true);
+    }//GEN-LAST:event_jMI_EladasActionPerformed
 
     /**
      * @param args the command line arguments

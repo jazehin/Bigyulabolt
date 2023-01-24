@@ -3,7 +3,6 @@ DROP TABLE IF EXISTS `b_forgalom`;
 DROP TABLE IF EXISTS `b_termekek`;
 DROP TABLE IF EXISTS `b_termekcsoport`;
 
-
 CREATE TABLE IF NOT EXISTS `b_user` (
     b_kod INT PRIMARY KEY AUTO_INCREMENT,
   	b_nev VARCHAR(30) NOT NULL,
@@ -14,7 +13,6 @@ CREATE TABLE IF NOT EXISTS `b_user` (
 INSERT INTO `b_user` (`b_nev`, `b_tipus`, `b_jelszo`) VALUES
 ('Erdei_Geri', 1, 'Hajra'),
 ('Nagy_Edmond_Ede', 0, '123');
-
 
 CREATE TABLE IF NOT EXISTS `b_termekcsoport` (
     b_Tcskod INT PRIMARY KEY AUTO_INCREMENT,
@@ -28,7 +26,6 @@ INSERT INTO `b_termekcsoport`
 (3, 'edessegek'),
 (4, 'gyerek_jatekok'),
 (5, 'Taiwan_tema');
-
 
 CREATE TABLE IF NOT EXISTS `b_termekek` (
     b_tazon INT PRIMARY KEY AUTO_INCREMENT,
@@ -50,7 +47,6 @@ INSERT INTO `b_termekek`
 (8, 'Obi van Kenobi Star Wars figura', 4, 9999),
 (9, 'Oolon tea', 5, 16999),
 (10, 'Winter Melon Tea', 5, 3499);
-
 
 CREATE TABLE IF NOT EXISTS `b_forgalom` (
     b_szamlaszam INT NOT NULL,
@@ -85,4 +81,13 @@ INSERT INTO `b_forgalom`
 (10, 6, 11, '2022-04-11 15:14:36'),
 (11, 1, 3, '2022-04-11 15:44:06'),
 (11, 2, 2, '2022-04-11 15:44:07'),
-(11, 6, 8, '2022-04-11 15:44:56')
+(11, 6, 8, '2022-04-11 15:44:56');
+
+CREATE VIEW kimutatas AS
+SELECT 
+	b_termekcsoport.b_Tcsnev AS 'tcsnev',
+	b_termekek.b_tar * SUM(b_forgalom.b_eladdb) AS 'eladas'
+FROM b_termekek 
+	INNER JOIN b_forgalom ON b_termekek.b_tazon = b_forgalom.b_termekazon
+	INNER JOIN b_termekcsoport ON b_termekek.b_tcsop = b_termekcsoport.b_Tcskod
+GROUP BY b_termekcsoport.b_Tcsnev;

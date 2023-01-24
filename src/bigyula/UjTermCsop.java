@@ -154,7 +154,7 @@ public class UjTermCsop extends javax.swing.JFrame {
             psta.close();
             mysql.finalize();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Hiba a felhasználó felvételekor: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Hiba a termékcsoport felvételekor: " + ex.getMessage());
         }
     }//GEN-LAST:event_jBtn_FelvetelActionPerformed
 
