@@ -67,6 +67,11 @@ public class Fomenu extends javax.swing.JFrame {
 
         jMI_Ujtermcsop.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMI_Ujtermcsop.setText("Új termékcsoport");
+        jMI_Ujtermcsop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMI_UjtermcsopActionPerformed(evt);
+            }
+        });
         jM_Karbantartas.add(jMI_Ujtermcsop);
 
         jMenuBar1.add(jM_Karbantartas);
@@ -102,9 +107,14 @@ public class Fomenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMI_UjfelhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMI_UjfelhActionPerformed
-        UjFelh ujfelh = new UjFelh(this);
+        UjFelh ujfelh = new UjFelh();
         ujfelh.setVisible(true);
     }//GEN-LAST:event_jMI_UjfelhActionPerformed
+
+    private void jMI_UjtermcsopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMI_UjtermcsopActionPerformed
+        UjTermCsop ujtermcsop = new UjTermCsop();
+        ujtermcsop.setVisible(true);
+    }//GEN-LAST:event_jMI_UjtermcsopActionPerformed
 
     /**
      * @param args the command line arguments

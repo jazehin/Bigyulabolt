@@ -5,21 +5,23 @@
  */
 package bigyula;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Kiss Bence
  */
 public class UjFelh extends javax.swing.JFrame {
 
-    private static Fomenu fomenu;
     /**
      * Creates new form UjFelh
      * @param fomenu
      */
-    public UjFelh(Fomenu fomenu) {
-        UjFelh.fomenu = fomenu;
+    public UjFelh() {
         initComponents();
-        // FOLYTKÖV
+        
     }
 
     /**
@@ -31,21 +33,167 @@ public class UjFelh extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTF_Felh = new javax.swing.JTextField();
+        jPF_Pass = new javax.swing.JPasswordField();
+        jBtn_Felvetel = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jPF_PassUjra = new javax.swing.JPasswordField();
+        jCB_Rendszergazda = new javax.swing.JCheckBox();
+        jBtn_Vissza = new javax.swing.JButton();
+
+        setTitle("Új felhasználó felvétele");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Új felhasználó felvétele");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Név:");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("Jelszó:");
+
+        jTF_Felh.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jPF_Pass.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jBtn_Felvetel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBtn_Felvetel.setText("Felvétel");
+        jBtn_Felvetel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtn_FelvetelActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Jelszó újra:");
+
+        jPF_PassUjra.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jCB_Rendszergazda.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jCB_Rendszergazda.setText("Rendszergazda");
+
+        jBtn_Vissza.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBtn_Vissza.setText("Vissza");
+        jBtn_Vissza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtn_VisszaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPF_PassUjra, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTF_Felh)
+                                    .addComponent(jPF_Pass, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jCB_Rendszergazda))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtn_Felvetel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtn_Vissza, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(131, 131, 131)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel3)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTF_Felh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCB_Rendszergazda))
+                        .addGap(28, 28, 28)
+                        .addComponent(jPF_Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jPF_PassUjra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtn_Felvetel)
+                    .addComponent(jBtn_Vissza))
+                .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtn_FelvetelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_FelvetelActionPerformed
+        String nev = jTF_Felh.getText();
+        String jelszo = jPF_Pass.getText();
+        String jelszoUjra = jPF_PassUjra.getText();
+        boolean admin = jCB_Rendszergazda.isSelected();
+        
+        if (nev.equals("") || jelszo.equals("") || jelszoUjra.equals("")) {
+            JOptionPane.showMessageDialog(null, "Üres mező nem lehet!");
+            return;
+        }
+        
+        if (nev.contains(" ")) {
+            JOptionPane.showMessageDialog(null, "Szóközt ne hagyjon!");
+            return;
+        }
+        
+        if (!jelszo.equals(jelszoUjra)) {
+            JOptionPane.showMessageDialog(null, "Jelszóegyezőség nem megfelelő!");
+            return;
+        }
+
+        try {
+            MySQL mysql = new MySQL();
+            String[] ertekek = {nev, jelszo};
+            PreparedStatement psta = mysql.getStatement("INSERT INTO b_user (b_nev, b_jelszo, b_tipus) "
+                    + "VALUES (?, ?, " + (admin ? 1 : 0) + ")", ertekek);
+            psta.execute();
+            psta.close();
+            mysql.finalize();
+            Success();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Hiba a felhasználó felvételekor: " + ex.getMessage());
+        }
+
+    }//GEN-LAST:event_jBtn_FelvetelActionPerformed
+
+    private void Success() {
+        JOptionPane.showMessageDialog(null, "A felhasználó felvétele sikeres!");
+        jTF_Felh.setText("");
+        jPF_Pass.setText("");
+        jPF_PassUjra.setText("");
+        jCB_Rendszergazda.setSelected(false);
+    }
+    
+    private void jBtn_VisszaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_VisszaActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jBtn_VisszaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,11 +225,21 @@ public class UjFelh extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UjFelh(fomenu).setVisible(true);
+                new UjFelh().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtn_Felvetel;
+    private javax.swing.JButton jBtn_Vissza;
+    private javax.swing.JCheckBox jCB_Rendszergazda;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPasswordField jPF_Pass;
+    private javax.swing.JPasswordField jPF_PassUjra;
+    private javax.swing.JTextField jTF_Felh;
     // End of variables declaration//GEN-END:variables
 }

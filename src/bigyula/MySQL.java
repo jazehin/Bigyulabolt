@@ -8,7 +8,6 @@ package bigyula;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -31,19 +30,25 @@ public class MySQL {
         }
     }
     
-    public ResultSet select(String sql, String[] ertekek) {
+    protected void finalize() throws SQLException  
+    {  
+        conn.close();
+    }  
+    
+    public PreparedStatement getStatement(String sql, String[] ertekek) {
         try {
             PreparedStatement sta = conn.prepareStatement(sql);
             for (int i = 1; i < ertekek.length + 1; i++) {
                 sta.setString(i, ertekek[i - 1]);
             }
-            ResultSet rs = sta.executeQuery();
-            return rs;
-            //sta.close();
+            return sta;
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Hiba a lekérdezés során: " + ex.getMessage());
         }
         
         return null;
     }
+    
+    
 } 

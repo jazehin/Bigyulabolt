@@ -5,6 +5,7 @@
  */
 package bigyula;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -108,7 +109,8 @@ public class Belepes extends javax.swing.JFrame {
         try {
             MySQL mysql = new MySQL();
             String[] ertekek = {jTF_Felh.getText(), jPF_Pass.getText()};
-            ResultSet rs = mysql.select("SELECT * FROM b_user WHERE b_nev = ? AND b_jelszo = ?;", ertekek);
+            PreparedStatement psta = mysql.getStatement("SELECT * FROM b_user WHERE b_nev = ? AND b_jelszo = ?;", ertekek);
+            ResultSet rs = psta.executeQuery();
             if (rs.next()) {
                 String nev = rs.getString("b_nev");
                 JOptionPane.showMessageDialog(null, "Üdvözlöm, " + nev + "!");
@@ -118,10 +120,14 @@ public class Belepes extends javax.swing.JFrame {
                 Fomenu fomenu = new Fomenu(admin);
                 fomenu.setVisible(true);
                 this.setVisible(false);
+                
             }
             else {
                 JOptionPane.showMessageDialog(null, "Hibás felhasználónév vagy jelszó!");
             }
+            
+            psta.close();
+            mysql.finalize();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Hiba az adatbázishoz csatlakozáskor: " + ex.getMessage());
         }
